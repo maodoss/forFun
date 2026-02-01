@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine 💕</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: "Inter", system-ui, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #f8cdda, #fbd3e9);
+    }
+
+    .card {
+      background: #fff;
+      width: 420px;
+      padding: 40px 30px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: visible;
+    }
+
+    .avatar {
+      width: 90px;
+      height: 90px;
+      background: #ffb703;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .avatar::after {
+      content: "❤️";
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 22px;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #111;
+    }
+
+    .buttons {
+      height: 80px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    button {
+      padding: 10px 26px;
+      font-size: 15px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 0 0 rgba(255,77,109,0.6);
+    }
+
+    #noBtn {
+      background: #e9ecef;
+      color: #333;
+      position: absolute;
+    }
+
+    /* pulse effect */
+    .pulse {
+      animation: pulse 0.6s ease;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 rgba(255,77,109,0.6); }
+      50% { transform: scale(1.15); box-shadow: 0 0 25px rgba(255,77,109,0.8); }
+      100% { transform: scale(1); box-shadow: 0 0 0 rgba(255,77,109,0.6); }
+    }
+
+    .hint {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    #message {
+      display: none;
+      font-size: 22px;
+      font-weight: 600;
+      color: #ff4d6d;
+      margin-top: 20px;
+    }
+
+    #gif {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #gif img {
+      width: 220px;
+      border-radius: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="avatar">
+      <!-- Remplacez le src par votre image ou GIF -->
+      <img src="https://www.photofunky.net/output/image/7/1/8/6/718657/photofunky.gif" alt="avatar">
+    </div>
+
+    <h1 id="question">Daadou will you be my valentine?</h1>
+
+    <div class="buttons" id="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+
+    <div class="hint" id="hint">"No" seems a bit shy 😈</div>
+
+    <div id="message">I knew you'd say yes 💖</div>
+
+    <div id="gif">
+      <img src="http://bribriange49.b.r.pic.centerblog.net/ac6ccb04.gif">
+    </div>
+  </div>
+
+  <script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const buttons = document.getElementById("buttons");
+  const message = document.getElementById("message");
+  const gif = document.getElementById("gif");
+  const card = document.querySelector(".card");
+  const hint = document.getElementById("hint");
+  const question = document.getElementById("question");
+
+  // Positionner le bouton "No" initialement à côté de "Yes"
+  function resetNoButton() {
+    const yesRect = yesBtn.getBoundingClientRect();
+    const buttonsRect = buttons.getBoundingClientRect();
+    
+    noBtn.style.left = `${yesBtn.offsetLeft + yesBtn.offsetWidth + 20}px`;
+    noBtn.style.top = `${yesBtn.offsetTop}px`;
+  }
+
+  resetNoButton();
+
+  noBtn.addEventListener("mouseenter", () => {
+    // Limites pour que le bouton reste dans le container
+    const maxX = card.clientWidth - noBtn.offsetWidth - 60;
+    const maxY = card.clientHeight - noBtn.offsetHeight - 60;
+
+    const randomX = 30 + Math.random() * (maxX - 30);
+    const randomY = 30 + Math.random() * (maxY - 30);
+
+    noBtn.style.left = `${randomX}px`;
+    noBtn.style.top = `${randomY}px`;
+
+    // Faire remarquer le bouton Oui
+    yesBtn.classList.remove("pulse");
+    void yesBtn.offsetWidth;
+    yesBtn.classList.add("pulse");
+  });
+
+  yesBtn.addEventListener("click", () => {
+    buttons.style.display = "none";
+    hint.style.display = "none";
+    question.style.display = "none"; // Masquer la question
+    message.style.display = "block";
+    gif.style.display = "block";
+  });
+</script>
+
+</body>
+</html>
